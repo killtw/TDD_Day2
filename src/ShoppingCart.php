@@ -45,13 +45,20 @@ class ShoppingCart
     {
         $sum = 0;
 
-        foreach ($this->books as $book) {
-            /** @var Book $book */
-            $sum += $book->price;
-        }
 
-        $discount = $this->getDiscountRate();
-        $sum *= $discount;
+        $grouped = $this->group($this->books);
+
+        foreach ($grouped as $books) {
+            $groupSum = 0;
+
+            foreach ($books as $book) {
+                /** @var Book $book */
+                $groupSum += $book->price;
+            }
+
+            $groupSum *= $this->getDiscountRate($books);
+            $sum += $groupSum;
+        }
 
         return $sum;
     }
@@ -59,11 +66,13 @@ class ShoppingCart
     /**
      * Calculate discount rate.
      *
+     * @param $books
+     *
      * @return float|int
      */
-    private function getDiscountRate()
+    private function getDiscountRate($books)
     {
-        switch (count($this->books)) {
+        switch (count($books)) {
             case 2:
                 return 0.95;
             case 3:
@@ -75,5 +84,23 @@ class ShoppingCart
             default:
                 return 1;
         }
+    }
+
+    private function group($books)
+    {
+        $tmp = [];
+        $grouped = [];
+
+        foreach ($books as $book) {
+            $tmp[$book->id][] = $book;
+        }
+
+        foreach ($tmp as $episodes) {
+            foreach($episodes as $key => $episode) {
+                $grouped[$key][] = $episode;
+            }
+        }
+
+        return $grouped;
     }
 }
