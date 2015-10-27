@@ -136,7 +136,6 @@ class ShippingCartTest extends PHPUnit_Framework_TestCase
             ->checkout();
 
         // assert
-        print_r($actual);
         $this->assertEquals($expected, $actual);
     }
 }

@@ -1,7 +1,9 @@
 {
   "name": "killtw/tdd-homework-day2",
   "description": "For joey's TDD class day 2 homework",
-  "require": {},
+  "require": {
+    "illuminate/support": "^5.1"
+  },
   "require-dev": {
     "phpunit/phpunit": "^5.0"
   },
