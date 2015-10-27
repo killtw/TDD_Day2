@@ -1,0 +1,14 @@
+{
+    "name": "killtw/tdd-homework-day2",
+    "description": "For joey's tdd homework day 2",
+    "require": { },
+    "require-dev": {
+        "phpunit/phpunit": "^5.0"
+    },
+    "authors": [
+        {
+            "name": "Karl Li",
+            "email": "killtw@gmail.com"
+        }
+    ]
+}
