@@ -44,8 +44,7 @@ class ShoppingCart
     public function checkout()
     {
         $sum = 0;
-
-
+        
         $grouped = $this->group($this->books);
 
         foreach ($grouped as $books) {
