@@ -50,13 +50,28 @@ class ShoppingCart
             $sum += $book->price;
         }
 
-        $count = count($this->books);
-        if ($count == 2) {
-            $sum *= 0.95;
-        } else if ($count == 3) {
-            $sum *= 0.9;
-        }
+        $discount = $this->getDiscountRate();
+        $sum *= $discount;
 
         return $sum;
+    }
+
+    /**
+     * Calculate discount rate.
+     *
+     * @return float|int
+     */
+    private function getDiscountRate()
+    {
+        switch (count($this->books)) {
+            case 2:
+                return 0.95;
+            case 3:
+                return 0.9;
+            case 4:
+                return 0.8;
+            default:
+                return 1;
+        }
     }
 }
