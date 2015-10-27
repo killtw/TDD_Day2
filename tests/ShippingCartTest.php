@@ -82,4 +82,23 @@ class ShippingCartTest extends PHPUnit_Framework_TestCase
         // assert
         $this->assertEquals($expected, $actual);
     }
+
+    /** @test **/
+    public function it_should_add_1_episode_one_two_three_four_and_five_then_discount_75_percent_and_return_375()
+    {
+        // arrange
+        $target = $this->cart;
+
+        // act
+        $expected = 375;
+        $actual = $target->add(new Book(1, 100))
+            ->add(new Book(2, 100))
+            ->add(new Book(3, 100))
+            ->add(new Book(4, 100))
+            ->add(new Book(5, 100))
+            ->checkout();
+
+        // assert
+        $this->assertEquals($expected, $actual);
+    }
 }
