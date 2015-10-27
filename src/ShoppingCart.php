@@ -2,6 +2,8 @@
 
 namespace App;
 
+use Illuminate\Support\Collection;
+
 /**
  * Class ShoppingCart
  *
@@ -19,7 +21,7 @@ class ShoppingCart
      */
     public function __construct()
     {
-        $this->books = [];
+        $this->books = collect();
     }
 
     /**
@@ -31,7 +33,7 @@ class ShoppingCart
      */
     public function add(Book $book)
     {
-        $this->books[] = $book;
+        $this->books->push($book);
 
         return $this;
     }
@@ -44,7 +46,7 @@ class ShoppingCart
     public function checkout()
     {
         $sum = 0;
-        
+
         $grouped = $this->group($this->books);
 
         foreach ($grouped as $books) {
@@ -85,16 +87,16 @@ class ShoppingCart
         }
     }
 
+    /**
+     * @param Collection $books
+     *
+     * @return array
+     */
     private function group($books)
     {
-        $tmp = [];
         $grouped = [];
 
-        foreach ($books as $book) {
-            $tmp[$book->id][] = $book;
-        }
-
-        foreach ($tmp as $episodes) {
+        foreach ($books->groupBy('id') as $episodes) {
             foreach($episodes as $key => $episode) {
                 $grouped[$key][] = $episode;
             }
