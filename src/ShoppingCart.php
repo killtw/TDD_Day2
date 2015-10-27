@@ -39,7 +39,7 @@ class ShoppingCart
     /**
      * Checkout books and sum price.
      *
-     * @return int
+     * @return float
      */
     public function checkout()
     {
@@ -48,6 +48,10 @@ class ShoppingCart
         foreach ($this->books as $book) {
             /** @var Book $book */
             $sum += $book->price;
+        }
+
+        if (count($this->books) == 2) {
+            $sum *= 0.95;
         }
 
         return $sum;
