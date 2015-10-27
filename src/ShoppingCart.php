@@ -50,8 +50,11 @@ class ShoppingCart
             $sum += $book->price;
         }
 
-        if (count($this->books) == 2) {
+        $count = count($this->books);
+        if ($count == 2) {
             $sum *= 0.95;
+        } else if ($count == 3) {
+            $sum *= 0.9;
         }
 
         return $sum;
